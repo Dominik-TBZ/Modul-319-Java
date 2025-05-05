@@ -2,6 +2,10 @@ import java.util.*;
 
 public class Hangman {
     static Scanner scanner = new Scanner(System.in);
+    static String word;
+    static Set<Character> guessedLetters;
+    static int maxFails = 6;
+    static int fails;
 
     public static void main(String[] args) {
         do {
@@ -10,70 +14,80 @@ public class Hangman {
         } while (askForRestart());
 
         scanner.close();
-        System.out.println("Danke fürs Spielen!");
     }
 
-    // Führt ein Hangman-Spiel durch
     public static void playGame() {
-        System.out.print("Gib ein Wort zum Raten ein: ");
-        String word = scanner.nextLine().toUpperCase();
+        System.out.print("Gib ein Wort zum Raten ein.");
+        word = scanner.nextLine().toUpperCase();
         clearConsole();
 
-        Set<Character> guessedLetters = new HashSet<>();
-        int maxFails = 6;
-        int fails = 0;
+        guessedLetters = new HashSet<>();
+        fails = 0;
+
         boolean gameOver = false;
 
         while (!gameOver) {
             clearConsole();
-            drawHangman(fails);
+            displayGameStatus();
 
-            String maskedWord = getMaskedWord(word, guessedLetters);
-            System.out.println("Wort: " + maskedWord);
-            System.out.println("Geratene Zeichen: " + guessedLetters);
-            System.out.println("Fehlversuche: " + fails + "/" + maxFails);
-
-            if (maskedWord.equals(word)) {
+            if (isGameWon()) {
                 System.out.println("\n==> Du hast gewonnen!");
                 gameOver = true;
-                break;
-            }
-
-            if (fails >= maxFails) {
+            } else if (isGameLost()) {
                 System.out.println("\n==> Du hast verloren! Das Wort war: " + word);
                 gameOver = true;
-                break;
-            }
-
-            System.out.print("\nRate einen Zeichen: ");
-            String input = scanner.nextLine().toUpperCase();
-
-            if (input.length() != 1) {
-                System.out.println("Ungültige Eingabe. Bitte gib nur einen Zeichen ein.");
-                System.out.println("Drücke Enter, um fortzufahren...");
-                scanner.nextLine(); // wartet auf Enter
-                continue;
-            }
-            
-            char guessedChar = input.charAt(0);
-            
-            if (guessedLetters.contains(guessedChar)) {
-                System.out.println("Diesen Zeichen hast du schon geraten.");
-                System.out.println("Drücke Enter, um fortzufahren...");
-                scanner.nextLine(); // wartet auf Enter
-                continue;
-            }
-            
-
-            guessedLetters.add(guessedChar);
-
-            if (!word.contains(String.valueOf(guessedChar))) {
-                fails++;
+            } else {
+                char input = getUserInput();
+                updateGameState(input);
             }
         }
     }
 
-    // Gibt das Wort mit _ für ungeratene Zeichen zurück
+    // === Eingabe ===
+    public static char getUserInput() {
+        while (true) {
+            System.out.print("\nRate einen Zeichen: ");
+            String input = scanner.nextLine().toUpperCase();
+
+            if (input.length() != 1 || !Character.isLetter(input.charAt(0))) {
+                System.out.println("Ungültige Eingabe. Bitte gib genau einen Zeichen ein.");
+                continue;
+            }
+
+            char guessedChar = input.charAt(0);
+            if (guessedLetters.contains(guessedChar)) {
+                System.out.println("Diesen Zeichen hast du schon geraten.");
+                continue;
+            }
+
+            return guessedChar;
+        }
+    }
+
+    // === Verarbeitung ===
+    public static void updateGameState(char guessedChar) {
+        guessedLetters.add(guessedChar);
+        if (!word.contains(String.valueOf(guessedChar))) {
+            fails++;
+        }
+    }
+
+    // === Ausgabe ===
+    public static void displayGameStatus() {
+        drawHangman(fails);
+        System.out.println("Wort: " + getMaskedWord(word, guessedLetters));
+        System.out.println("Geratene Zeichen: " + guessedLetters);
+        System.out.println("Fehlversuche: " + fails + "/" + maxFails);
+    }
+
+    public static boolean isGameWon() {
+        return getMaskedWord(word, guessedLetters).equals(word);
+    }
+
+    public static boolean isGameLost() {
+        return fails >= maxFails;
+    }
+
     public static String getMaskedWord(String word, Set<Character> guessed) {
         StringBuilder result = new StringBuilder();
         for (char c : word.toCharArray()) {
@@ -82,7 +96,6 @@ public class Hangman {
         return result.toString();
     }
 
-    // Zeichnet das aktuelle Hangman-Bild
     public static void drawHangman(int fails) {
         System.out.println("--------");
         System.out.println("|      |");
@@ -93,14 +106,12 @@ public class Hangman {
         System.out.println("==========");
     }
 
-    // Fragt den Spieler, ob er eine neue Runde starten möchte
     public static boolean askForRestart() {
         System.out.print("\nNeue Runde? (J/N): ");
         String input = scanner.nextLine().trim().toUpperCase();
         return input.equals("J");
     }
 
-    // Versucht die Konsole zu löschen
     public static void clearConsole() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {
