@@ -1,16 +1,24 @@
 # Modul-319-Java
 Repository zum Modul 319
 
-## Tagesrückblicke
+##Lernjournal
 
-### 17.03.2025
+Yalla das ist mein Lernjounal!
 
-Was konnte ich machen?
+###Fragen
+1. *Was konntest du heute erledigen?*
+2. *Hatte ich Probleme? Wie konnte ich diese Lösen?*
 
-Ich konnte heute auf Level 2 viele Tests machen (3) und habe jeden auf Anhieb bestanden.
+###Antworten
 
-Hatte ich Probleme? Wie bin ich vorgegangen?
+**14.04.2025**
 
-Heute hatte ich keine Probleme, ich bin super vorwärtsgekommen
+**07.04.2025**
 
-### 24.03.2025
+**31.03.2025**
+
+**24.03.2025**
+
+**17.03.2025**
+
+**10.03.2025**
