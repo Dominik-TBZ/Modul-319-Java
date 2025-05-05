@@ -6,7 +6,7 @@
 3.	Das Programm zeigt das Wort mit Platzhaltern („_ _ A _ E _“)
 4.	Bei falscher Eingabe wird ein neuer Körperteil gezeichnet
 5.	Das Spiel endet mit „Sieg“ oder „Verloren“
-6.	Bereits geratene Buchstaben werden angezeigt7
+6.	Bereits geratene Buchstaben werden angezeigt
 
 ## Aktivitätsdiagramm
 

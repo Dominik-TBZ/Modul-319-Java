@@ -1,20 +1,20 @@
 import java.util.*;
 
 public class Hangman {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
+    public static void main(String[] args) {
         do {
             clearConsole();
-            playGame(scanner);
-        } while (askForRestart(scanner));
+            playGame();
+        } while (askForRestart());
 
         scanner.close();
         System.out.println("Danke fürs Spielen!");
     }
 
     // Führt ein Hangman-Spiel durch
-    public static void playGame(Scanner scanner) {
+    public static void playGame() {
         System.out.print("Gib ein Wort zum Raten ein: ");
         String word = scanner.nextLine().toUpperCase();
         clearConsole();
@@ -89,7 +89,7 @@ public class Hangman {
     }
 
     // Fragt den Spieler, ob er eine neue Runde starten möchte
-    public static boolean askForRestart(Scanner scanner) {
+    public static boolean askForRestart() {
         System.out.print("\nNeue Runde? (J/N): ");
         String input = scanner.nextLine().trim().toUpperCase();
         return input.equals("J");
