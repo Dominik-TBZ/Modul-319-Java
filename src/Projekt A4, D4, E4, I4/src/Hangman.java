@@ -30,7 +30,7 @@ public class Hangman {
 
             String maskedWord = getMaskedWord(word, guessedLetters);
             System.out.println("Wort: " + maskedWord);
-            System.out.println("Geratene Buchstaben: " + guessedLetters);
+            System.out.println("Geratene Zeichen: " + guessedLetters);
             System.out.println("Fehlversuche: " + fails + "/" + maxFails);
 
             if (maskedWord.equals(word)) {
@@ -45,20 +45,25 @@ public class Hangman {
                 break;
             }
 
-            System.out.print("\nRate einen Buchstaben: ");
+            System.out.print("\nRate einen Zeichen: ");
             String input = scanner.nextLine().toUpperCase();
 
-            if (input.length() != 1 || !Character.isLetter(input.charAt(0))) {
-                System.out.println("Ungültige Eingabe. Bitte gib nur einen Buchstaben ein.");
+            if (input.length() != 1) {
+                System.out.println("Ungültige Eingabe. Bitte gib nur einen Zeichen ein.");
+                System.out.println("Drücke Enter, um fortzufahren...");
+                scanner.nextLine(); // wartet auf Enter
                 continue;
             }
-
+            
             char guessedChar = input.charAt(0);
-
+            
             if (guessedLetters.contains(guessedChar)) {
-                System.out.println("Diesen Buchstaben hast du schon geraten.");
+                System.out.println("Diesen Zeichen hast du schon geraten.");
+                System.out.println("Drücke Enter, um fortzufahren...");
+                scanner.nextLine(); // wartet auf Enter
                 continue;
             }
+            
 
             guessedLetters.add(guessedChar);
 
@@ -68,7 +73,7 @@ public class Hangman {
         }
     }
 
-    // Gibt das Wort mit _ für ungeratene Buchstaben zurück
+    // Gibt das Wort mit _ für ungeratene Zeichen zurück
     public static String getMaskedWord(String word, Set<Character> guessed) {
         StringBuilder result = new StringBuilder();
         for (char c : word.toCharArray()) {
