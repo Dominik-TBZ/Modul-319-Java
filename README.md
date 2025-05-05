@@ -1,15 +1,15 @@
 # Modul-319-Java
 Repository zum Modul 319
 
-##Lernjournal
+## Lernjournal
 
 Yalla das ist mein Lernjounal!
 
-###Fragen
+### Fragen
 1. *Was konntest du heute erledigen?*
 2. *Hatte ich Probleme? Wie konnte ich diese Lösen?*
 
-###Antworten
+### Antworten
 
 **14.04.2025**
 
