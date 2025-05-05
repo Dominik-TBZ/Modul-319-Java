@@ -6,7 +6,7 @@ Repository zum Modul 319
 Yalla das ist mein Lernjounal!
 
 ### Fragen
-**1. Was konntest du heute erledigen?**
+**1. Was konntest du heute erledigen?**  
 **2. Hatte ich Probleme? Wie konnte ich diese Lösen?**
 
 ### Antworten
